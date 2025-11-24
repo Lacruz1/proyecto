@@ -1,4 +1,5 @@
 import random
+import time
 def PPT():
     salir = True
     print("/////Juego de piedra, papel o tijeras///// \n---Escribe ´salir´ para abandonar el juego---")
@@ -30,6 +31,78 @@ def PPT():
             print(f"Esta es tu puntuacion: {Puntos}")
     print(f"Esta es tu puntuacion final: {Puntos}!")
     return "PPT", Puntos
+
+def simon():
+    Puntos = 0
+    secuencia = []
+    ronda = 1
+    salida = True
+    print("///// Juego de Simón Dice (Secuencia de Números) /////")
+    print("--- Objetivo: Repetir la secuencia de números en el orden correcto. ---")
+    print("--- Escribe 'salir' en cualquier momento para abandonar. ---")
+    time.sleep(8)
+    while salida == True:
+        print("\n" + "="*50)
+        print(f"Ronda: {ronda}")
+        nuevo_numero = random.randint(1, 10) 
+        secuencia.append(nuevo_numero)
+        
+        print("\n¡Observa y memoriza estos numeros!")
+        time.sleep(5)
+        for num in secuencia:
+            print(f"  --> {num}")
+            time.sleep(0.5) 
+        
+        time.sleep(0.5) 
+        print("\n" * 50) 
+        print("Ahora, ingresa la secuencia completa, número por número ")
+        
+        
+        correcto = True
+        
+        for i in range(len(secuencia)):
+            
+            a = f"Número #{i + 1} de {len(secuencia)}: "
+            entrada = input(a).strip() 
+
+        
+            if entrada.lower() == 'salir':
+                print("Tu puntaje final es:", Puntos)
+                salida = False
+                correcto = False
+                break
+            
+            
+            try:
+                intento_num = int(entrada)
+            except ValueError:
+                
+                print("Entrada inválida. Debes ingresar un número.")
+                correcto = False
+                break 
+
+           
+            if intento_num != secuencia[i]:
+                print(f" Incorrecto. El número correcto era: {secuencia[i]}.")
+                correcto = False
+                break
+        
+        if not salida:
+            break
+            
+        if correcto:
+            print("\n¡Correcto! Has recordado toda la secuencia.\n")
+        
+            Puntos += 3 * ronda 
+            ronda += 1
+            print(f"Tu puntaje actual es: {Puntos}")
+        else:
+            Puntos -= 2 * ronda
+            print(f"\n¡Derrota! Perdiste en la Ronda {ronda}.")
+            print(f"La secuencia completa era: {secuencia}")
+            print(f"Tu puntaje final es: {Puntos}")
+            salida = False 
+
 
 def wordle():
     palabras = [

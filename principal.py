@@ -1,6 +1,6 @@
 import os
 import time
-from back import PPT, gato, wordle, numero
+from back import PPT, gato, wordle, numero, simon
 
 ARCHIVO_PUNTUACIONES = "puntuaciones.txt"
 
@@ -33,11 +33,12 @@ def menu_principal():
         print("2. Número")
         print("3. Wordle")
         print("4. Piedra, Papel o Tijera")
-        print("5. Ver puntuaciones")
-        print("6. Borrar puntuaciones")
-        print("7. Salir")
+        print("5. Simon dice")
+        print("6. Ver puntuaciones")
+        print("7. Borrar puntuaciones")
+        print("8. Salir")
 
-        opcion = input("Elige (1-7): ")
+        opcion = input("Elige (1-8): ")
         if opcion == "1":
             juego, pts = gato()
         elif opcion == "2":
@@ -47,12 +48,13 @@ def menu_principal():
         elif opcion == "4":
             juego, pts = PPT()
         elif opcion == "5":
-            mostrar_puntuaciones()
-            continue
+            juego, pts = simon()
         elif opcion == "6":
+            mostrar_puntuaciones()
+        elif opcion == "7":
             borrar_puntuaciones()
             continue
-        elif opcion == "7":
+        elif opcion == "8":
             print("¡Hasta luego!")
             salir = False
             continue
