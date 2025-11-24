@@ -31,7 +31,6 @@ def PPT():
             print(f"Esta es tu puntuacion: {Puntos}")
     print(f"Esta es tu puntuacion final: {Puntos}!")
     return "PPT", Puntos
-
 def simon():
     Puntos = 0
     secuencia = []
@@ -102,8 +101,6 @@ def simon():
             print(f"La secuencia completa era: {secuencia}")
             print(f"Tu puntaje final es: {Puntos}")
             salida = False 
-
-
 def wordle():
     palabras = [
         "Amigo", "Barco", "Canto", "Denso", "Fuego", "Grito", "Huevo", "Llave", "Nieve", "Ronda",
@@ -168,7 +165,6 @@ def wordle():
             print("Tu puntaje fue: ",Puntos,"!!!")
             salir = False
     return "Wordle", Puntos
-
 def gato():
 
     print("¡Bienvenido al juego del Gato!")
@@ -249,7 +245,6 @@ def gato():
         if input(f"Esta es tu puntuacion: {Puntos} \nQuieres jugar de nuevo? (s/n): ").lower() != "s":
             break
     return "Gato", Puntos
-
 def numero():
     intento=10
     Puntos=0
