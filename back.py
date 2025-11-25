@@ -101,6 +101,8 @@ def simon():
             print(f"La secuencia completa era: {secuencia}")
             print(f"Tu puntaje final es: {Puntos}")
             salida = False 
+            
+    return "Simon", Puntos
 def wordle():
     palabras = [
         "Amigo", "Barco", "Canto", "Denso", "Fuego", "Grito", "Huevo", "Llave", "Nieve", "Ronda",
@@ -166,7 +168,6 @@ def wordle():
             salir = False
     return "Wordle", Puntos
 def gato():
-
     print("¡Bienvenido al juego del Gato!")
     print("Referencia de posiciones:")
     print(" 1 | 2 | 3 ")
@@ -175,10 +176,15 @@ def gato():
     print("-----------")
     print(" 7 | 8 | 9 ")
     print("------------")
-    Puntos=0
+    Puntos = 0
+    
     while True:
         tablero = [" "] * 10
         jugador = input("¿Quieres ser X o O? ").upper()
+        if jugador not in ["X", "O"]:
+            print("Selecciona X o O")
+            continue
+            
         computadora = "O" if jugador == "X" else "X"
         turno = random.choice(["jugador", "computadora"])
         print(turno, "irá primero.")
@@ -207,43 +213,48 @@ def gato():
         while juego:
             if turno == "jugador":
                 dibujar()
-                mov = input("Tu movimiento (1-9): ")
-                if mov.isdigit() and 1 <= int(mov) <= 9 and tablero[int(mov)] == " ":
-                    tablero[int(mov)] = jugador
-                    if ganador(jugador):
+                try:
+                    mov = int(input("Tu movimiento (1-9): "))
+                    if 1 <= mov <= 9 and tablero[mov] == " ":
+                        tablero[mov] = jugador
+                        if ganador(jugador):
+                            dibujar()
+                            print("¡Ganaste!")
+                            Puntos += 5
+                            juego = False
+                        elif tableroLleno():
+                            dibujar()
+                            print("¡Empate!")
+                            Puntos -= 2
+                            juego = False
+                        else:
+                            turno = "computadora"
+                    else:
+                        print("Movimiento inválido.")
+                except ValueError:
+                    print("Entrada no válida.")
+            else:
+                
+                posibles = [i for i in range(1,10) if tablero[i] == " "]
+                if posibles:
+                    mov = random.choice(posibles)
+                    tablero[mov] = computadora
+                    if ganador(computadora):
                         dibujar()
-                        print("¡Ganaste!")
-                        Puntos+=5
-                        print("tu puntaje es:", Puntos)
+                        print("La computadora ganó.")
+                        Puntos -= 80
                         juego = False
                     elif tableroLleno():
                         dibujar()
                         print("¡Empate!")
-                        print("tu puntaje es:", Puntos)
-                        Puntos-=2
                         juego = False
-                        
                     else:
-                        turno = "computadora"
-                else:
-                    print("Movimiento inválido.")
-            else:
-                mov = random.choice([i for i in range(1,10) if tablero[i] == " "])
-                tablero[mov] = computadora
-                if ganador(computadora):
-                    dibujar()
-                    print("La computadora ganó.")
-                    Puntos-=80
-                    juego = False
-                elif tableroLleno():
-                    dibujar()
-                    print("¡Empate!")
-                    juego = False
-                else:
-                    turno = "jugador"
+                        turno = "jugador"
 
-        if input(f"Esta es tu puntuacion: {Puntos} \nQuieres jugar de nuevo? (s/n): ").lower() != "s":
+        print(f"Tu puntuacion actual en sesión: {Puntos}")
+        if input("¿Quieres jugar de nuevo? (s/n): ").lower() != "s":
             break
+
     return "Gato", Puntos
 def numero():
     intento=10
